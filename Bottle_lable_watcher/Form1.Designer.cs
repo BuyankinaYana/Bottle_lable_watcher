@@ -431,7 +431,7 @@
             cb_detect_lable.Name = "cb_detect_lable";
             cb_detect_lable.Size = new Size(334, 35);
             cb_detect_lable.TabIndex = 0;
-            cb_detect_lable.Text = "Обнаружение этикетки";
+            cb_detect_lable.Text = "Обнаружение1 этикетки";
             cb_detect_lable.UseVisualStyleBackColor = false;
             // 
             // cb_lable_offset
