@@ -647,7 +647,7 @@
             label26.Name = "label26";
             label26.Size = new Size(145, 75);
             label26.TabIndex = 1;
-            label26.Text = "Погрешность смещения центра этикетки";
+            label26.Text = "Погрешность смещения центра этикетки %";
             // 
             // label25
             // 
@@ -1162,8 +1162,8 @@
             // tableLayoutPanel9
             // 
             tableLayoutPanel9.ColumnCount = 2;
-            tableLayoutPanel9.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 75F));
-            tableLayoutPanel9.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tableLayoutPanel9.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 78F));
+            tableLayoutPanel9.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 22F));
             tableLayoutPanel9.Controls.Add(n_extension, 1, 2);
             tableLayoutPanel9.Controls.Add(label23, 0, 2);
             tableLayoutPanel9.Controls.Add(n_max_area, 1, 1);
@@ -1184,9 +1184,9 @@
             // 
             n_extension.Dock = DockStyle.Top;
             n_extension.ForeColor = Color.FromArgb(0, 0, 192);
-            n_extension.Location = new Point(153, 83);
+            n_extension.Location = new Point(159, 83);
             n_extension.Name = "n_extension";
-            n_extension.Size = new Size(45, 34);
+            n_extension.Size = new Size(39, 34);
             n_extension.TabIndex = 6;
             n_extension.Value = new decimal(new int[] { 5, 0, 0, 0 });
             // 
@@ -1196,7 +1196,7 @@
             label23.ForeColor = Color.FromArgb(0, 0, 192);
             label23.Location = new Point(3, 80);
             label23.Name = "label23";
-            label23.Size = new Size(144, 35);
+            label23.Size = new Size(150, 35);
             label23.TabIndex = 5;
             label23.Text = "Коэффициент заполнения %";
             // 
@@ -1204,9 +1204,9 @@
             // 
             n_max_area.Dock = DockStyle.Top;
             n_max_area.ForeColor = Color.FromArgb(0, 0, 192);
-            n_max_area.Location = new Point(153, 43);
+            n_max_area.Location = new Point(159, 43);
             n_max_area.Name = "n_max_area";
-            n_max_area.Size = new Size(45, 34);
+            n_max_area.Size = new Size(39, 34);
             n_max_area.TabIndex = 4;
             n_max_area.Value = new decimal(new int[] { 95, 0, 0, 0 });
             // 
@@ -1214,9 +1214,9 @@
             // 
             n_min_area.Dock = DockStyle.Top;
             n_min_area.ForeColor = Color.FromArgb(0, 0, 192);
-            n_min_area.Location = new Point(153, 3);
+            n_min_area.Location = new Point(159, 3);
             n_min_area.Name = "n_min_area";
-            n_min_area.Size = new Size(45, 34);
+            n_min_area.Size = new Size(39, 34);
             n_min_area.TabIndex = 2;
             n_min_area.Value = new decimal(new int[] { 50, 0, 0, 0 });
             // 
@@ -1227,7 +1227,7 @@
             label21.ForeColor = Color.FromArgb(0, 0, 192);
             label21.Location = new Point(3, 0);
             label21.Name = "label21";
-            label21.Size = new Size(144, 35);
+            label21.Size = new Size(150, 35);
             label21.TabIndex = 1;
             label21.Text = "Минимальная площадь %";
             // 
@@ -1237,7 +1237,7 @@
             label22.ForeColor = Color.FromArgb(0, 0, 192);
             label22.Location = new Point(3, 40);
             label22.Name = "label22";
-            label22.Size = new Size(144, 35);
+            label22.Size = new Size(150, 35);
             label22.TabIndex = 3;
             label22.Text = "Максимальная площадь %";
             // 
