@@ -56,6 +56,7 @@
             // L_camera_1
             // 
             L_camera_1.AutoSize = true;
+            L_camera_1.BackColor = SystemColors.ButtonHighlight;
             L_camera_1.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 204);
             L_camera_1.ForeColor = Color.FromArgb(0, 0, 192);
             L_camera_1.Location = new Point(225, 100);
@@ -95,8 +96,9 @@
             B_cancel.Name = "B_cancel";
             B_cancel.Size = new Size(168, 45);
             B_cancel.TabIndex = 4;
-            B_cancel.Text = "Отмена";
+            B_cancel.Text = "Выход";
             B_cancel.UseVisualStyleBackColor = false;
+            B_cancel.Click += B_cancel_Click;
             // 
             // B_update
             // 

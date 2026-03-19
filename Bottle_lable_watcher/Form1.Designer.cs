@@ -255,6 +255,7 @@
             b_start.TabIndex = 0;
             b_start.Text = "Старт";
             b_start.UseVisualStyleBackColor = false;
+            b_start.Click += b_start_Click;
             // 
             // b_stop
             // 
@@ -268,6 +269,7 @@
             b_stop.TabIndex = 1;
             b_stop.Text = "Стоп";
             b_stop.UseVisualStyleBackColor = false;
+            b_stop.Click += b_stop_Click;
             // 
             // l_work
             // 
@@ -309,6 +311,7 @@
             b_camera1.TabIndex = 0;
             b_camera1.Text = "Камера 1";
             b_camera1.UseVisualStyleBackColor = false;
+            b_camera1.Click += b_camera1_Click;
             // 
             // b_camera2
             // 
@@ -436,6 +439,7 @@
             pictureBox1.Location = new Point(0, 35);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(339, 513);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 1;
             pictureBox1.TabStop = false;
             // 
@@ -944,6 +948,7 @@
             b_roi_kv.TabIndex = 1;
             b_roi_kv.Text = "Выделение прямоугольником";
             b_roi_kv.UseVisualStyleBackColor = false;
+            b_roi_kv.Click += b_roi_kv_Click;
             // 
             // comboBox2
             // 
