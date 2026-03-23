@@ -109,6 +109,7 @@
             label16 = new Label();
             label15 = new Label();
             panel15 = new Panel();
+            combobox_method_detect = new ComboBox();
             tableLayoutPanel9 = new TableLayoutPanel();
             n_extension = new NumericUpDown();
             label23 = new Label();
@@ -325,6 +326,7 @@
             b_camera2.TabIndex = 1;
             b_camera2.Text = "Камера 2";
             b_camera2.UseVisualStyleBackColor = false;
+            b_camera2.Click += b_camera2_Click;
             // 
             // l_panelcontrol
             // 
@@ -473,6 +475,7 @@
             pictureBox2.Location = new Point(0, 35);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(339, 513);
+            pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox2.TabIndex = 1;
             pictureBox2.TabStop = false;
             // 
@@ -693,6 +696,7 @@
             pb_crop.Location = new Point(0, 30);
             pb_crop.Name = "pb_crop";
             pb_crop.Size = new Size(201, 360);
+            pb_crop.SizeMode = PictureBoxSizeMode.Zoom;
             pb_crop.TabIndex = 1;
             pb_crop.TabStop = false;
             // 
@@ -726,6 +730,7 @@
             pb_contour.Location = new Point(0, 30);
             pb_contour.Name = "pb_contour";
             pb_contour.Size = new Size(201, 360);
+            pb_contour.SizeMode = PictureBoxSizeMode.Zoom;
             pb_contour.TabIndex = 1;
             pb_contour.TabStop = false;
             // 
@@ -758,6 +763,7 @@
             pb_morph.Location = new Point(0, 30);
             pb_morph.Name = "pb_morph";
             pb_morph.Size = new Size(201, 360);
+            pb_morph.SizeMode = PictureBoxSizeMode.Zoom;
             pb_morph.TabIndex = 1;
             pb_morph.TabStop = false;
             // 
@@ -790,6 +796,7 @@
             pb_lable.Location = new Point(0, 30);
             pb_lable.Name = "pb_lable";
             pb_lable.Size = new Size(201, 360);
+            pb_lable.SizeMode = PictureBoxSizeMode.Zoom;
             pb_lable.TabIndex = 1;
             pb_lable.TabStop = false;
             // 
@@ -822,6 +829,7 @@
             pb_center.Location = new Point(0, 30);
             pb_center.Name = "pb_center";
             pb_center.Size = new Size(202, 360);
+            pb_center.SizeMode = PictureBoxSizeMode.Zoom;
             pb_center.TabIndex = 1;
             pb_center.TabStop = false;
             // 
@@ -898,8 +906,9 @@
             b_start_alg.Name = "b_start_alg";
             b_start_alg.Size = new Size(94, 100);
             b_start_alg.TabIndex = 2;
-            b_start_alg.Text = "Старт";
+            b_start_alg.Text = "Просмотр";
             b_start_alg.UseVisualStyleBackColor = false;
+            b_start_alg.Click += b_start_alg_Click;
             // 
             // b_stop_alg
             // 
@@ -912,6 +921,7 @@
             b_stop_alg.TabIndex = 3;
             b_stop_alg.Text = "Сброс";
             b_stop_alg.UseVisualStyleBackColor = false;
+            b_stop_alg.Click += b_stop_alg_Click;
             // 
             // b_roi_point
             // 
@@ -924,6 +934,7 @@
             b_roi_point.TabIndex = 4;
             b_roi_point.Text = "Выделение контура";
             b_roi_point.UseVisualStyleBackColor = false;
+            b_roi_point.Click += b_roi_point_Click;
             // 
             // label10
             // 
@@ -952,6 +963,7 @@
             // 
             // comboBox2
             // 
+            comboBox2.BackColor = SystemColors.GradientActiveCaption;
             comboBox2.Dock = DockStyle.Top;
             comboBox2.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 204);
             comboBox2.ForeColor = Color.FromArgb(0, 0, 192);
@@ -1155,6 +1167,7 @@
             // 
             // panel15
             // 
+            panel15.Controls.Add(combobox_method_detect);
             panel15.Controls.Add(tableLayoutPanel9);
             panel15.Controls.Add(label20);
             panel15.Controls.Add(label19);
@@ -1163,6 +1176,19 @@
             panel15.Name = "panel15";
             panel15.Size = new Size(201, 390);
             panel15.TabIndex = 8;
+            // 
+            // combobox_method_detect
+            // 
+            combobox_method_detect.BackColor = SystemColors.GradientInactiveCaption;
+            combobox_method_detect.Dock = DockStyle.Top;
+            combobox_method_detect.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 204);
+            combobox_method_detect.ForeColor = Color.FromArgb(0, 0, 192);
+            combobox_method_detect.FormattingEnabled = true;
+            combobox_method_detect.Items.AddRange(new object[] { "Выделение прямоугольником", "Выделение по контуру" });
+            combobox_method_detect.Location = new Point(0, 196);
+            combobox_method_detect.Name = "combobox_method_detect";
+            combobox_method_detect.Size = new Size(201, 36);
+            combobox_method_detect.TabIndex = 8;
             // 
             // tableLayoutPanel9
             // 
@@ -1182,7 +1208,7 @@
             tableLayoutPanel9.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
             tableLayoutPanel9.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
             tableLayoutPanel9.RowStyles.Add(new RowStyle(SizeType.Absolute, 40F));
-            tableLayoutPanel9.Size = new Size(201, 152);
+            tableLayoutPanel9.Size = new Size(201, 141);
             tableLayoutPanel9.TabIndex = 7;
             // 
             // n_extension
@@ -1453,5 +1479,6 @@
         private Label label26;
         private Label label25;
         private Label label24;
+        private ComboBox combobox_method_detect;
     }
 }
