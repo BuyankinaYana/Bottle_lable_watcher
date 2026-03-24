@@ -111,6 +111,7 @@
             B_update.TabIndex = 5;
             B_update.Text = "Перезапуск";
             B_update.UseVisualStyleBackColor = false;
+            B_update.Click += B_update_Click;
             // 
             // button3
             // 

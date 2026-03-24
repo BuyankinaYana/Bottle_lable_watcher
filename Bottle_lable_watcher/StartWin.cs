@@ -1,4 +1,5 @@
 ﻿using Bottle_lable_watcher.Camera;
+using Bottle_lable_watcher.Modules;
 using Kvantron.Hardware.Cameras;
 using OpenCvSharp;
 using OpenCvSharp.Extensions;
@@ -19,25 +20,33 @@ namespace Bottle_lable_watcher
 {
     public partial class StartWin : Form
     {
-        //private Camera_connection _cameraController;
-        //private Camera_connection _cameraController_2;
-        //private List<HikCamera> list_camera = new List<HikCamera>();
-        private HikCamera cam;
+        private HikCamera cam_1;
+        private HikCamera cam_2;
+        private Modbus_TCP client_tcp;
+
         public StartWin()
         {
             InitializeComponent();
-            //_cameraController = new Camera_connection("Vir74501888", this);
+            Shown += Form1_Shown;
+        }
 
-            /*if (_cameraController.Camera_connect())
+        private async void Form1_Shown(object sender, EventArgs e)
+        {
+            await Task.Delay(100);
+            initialized();         
+        }
+
+        //Функция инициализации подключения
+        private void initialized()
+        {
+            Task.Delay(1000);
+
+            client_tcp = new Modbus_TCP("10.10.69.228", 502);
+            if (client_tcp.Connect())
             {
-                L_camera_1.ForeColor = Color.ForestGreen;
-                L_camera_1.BackColor = Color.PaleGreen;
+                L_module.ForeColor = Color.ForestGreen;
             }
-            _cameraController.Camera_disconnect();
-            */
-            /*bool[] flags = Camera_connection.Load_camera();
-            //this.FormClosing += MainForm_FormClosing;
-            
+            else { L_module.ForeColor = Color.Red; }
 
             string filePath = "AppSettings.json";
             CameraManager manager = new CameraManager(filePath);
@@ -49,18 +58,19 @@ namespace Bottle_lable_watcher
                 if (c.Open())
                 {
                     int.TryParse(camera.ID_num, out int id);
-                    list_camera.Add(c);
-                    labels_name[id-1].ForeColor = Color.ForestGreen;
+                    Logger_class.LogInfo($"Камера {id} подключена");
+                    labels_name[id - 1].ForeColor = Color.ForestGreen;
+                    c.Close();
                 }
-                c.Close();
-            }*/
+                else
+                {
+                    
+                    int.TryParse(camera.ID_num, out int id);
+                    labels_name[id - 1].ForeColor = Color.Red;
+                    Logger_class.LogError($"Камера {id} не удалось подключить");
+                }
+            }
         }
-
-        //protected override void OnFormClosing(FormClosingEventArgs e)
-        //{
-        //_cameraController?.Dispose();
-        //base.OnFormClosing(e);
-        //}
 
         private void button3_Click(object sender, EventArgs e)
         {
@@ -71,7 +81,13 @@ namespace Bottle_lable_watcher
 
         private void B_cancel_Click(object sender, EventArgs e)
         {
+            client_tcp.Disconnect();
             Application.Exit();
+        }
+
+        private void B_update_Click(object sender, EventArgs e)
+        {
+            initialized();
         }
     }
 }

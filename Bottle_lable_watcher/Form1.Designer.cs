@@ -1116,6 +1116,7 @@
             n_kernel.ForeColor = Color.FromArgb(0, 0, 192);
             n_kernel.Location = new Point(153, 3);
             n_kernel.Maximum = new decimal(new int[] { 20, 0, 0, 0 });
+            n_kernel.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             n_kernel.Name = "n_kernel";
             n_kernel.Size = new Size(45, 34);
             n_kernel.TabIndex = 2;

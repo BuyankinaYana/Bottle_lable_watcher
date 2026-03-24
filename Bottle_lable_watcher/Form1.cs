@@ -160,6 +160,10 @@ namespace Bottle_lable_watcher
                 e.Cancel = true;
                 return;
             }
+            camera_1.EndStream();
+            camera_2.EndStream();
+            camera_1.Close();
+            camera_2.Close();
             Form form2 = new StartWin();
             form2.Show();
         }
@@ -274,13 +278,13 @@ namespace Bottle_lable_watcher
             float min_area = (int)n_min_area.Value / 100F * h * w;
             float max_area = (int)n_max_area.Value / 100F * h * w;
             string method = combobox_method_detect.Text;
-            bool flag=false;
+            bool flag;
             if (method =="Выделение прямоугольником")
             {
                 flag = false;
             }
             else { flag = true; }
-                Bitmap detect_image = null;
+            Bitmap detect_image = null;
             detect_image = Segmentation_lable.Detect_lable(new Bitmap(pb_morph.Image), new Bitmap(pb_crop.Image), min_area, max_area, (int)n_extension.Value, flag);
             pb_lable.Image = detect_image;
         }

@@ -70,11 +70,15 @@ namespace Bottle_lable_watcher.Configuration_algorithm
                         int w_rect = boundingRect.Width;
                         int h_rect = boundingRect.Height;
 
-                        Cv2.Rectangle(img_draw, new Rect(x_rect, y_rect, w_rect, h_rect), new Scalar(0, 255, 0), 5);
+                        Cv2.Rectangle(img_draw, new Rect(x_rect, y_rect, w_rect, h_rect), new Scalar(0, 255, 0), 9);
+                        Cv2.CvtColor(img_draw, img_draw, ColorConversionCodes.BGR2RGB);
+                        Cv2.CvtColor(img_draw, img_draw, ColorConversionCodes.RGB2BGR);
                     }
                     else
                     {
-                        Cv2.DrawContours(img_draw, points, 0, new Scalar(255, 0, 0), thickness: 5);
+                        Cv2.DrawContours(img_draw, points, 0, new Scalar(0, 255, 0), thickness: 9);
+                        Cv2.CvtColor(img_draw, img_draw, ColorConversionCodes.BGR2RGB);
+                        Cv2.CvtColor(img_draw, img_draw, ColorConversionCodes.RGB2BGR);
                     }
                     
                 }
