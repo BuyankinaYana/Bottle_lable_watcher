@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bottle_lable_watcher.Modules;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -46,7 +47,7 @@ namespace Bottle_lable_watcher.Camera
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Ошибка загрузки JSON: {ex.Message}");
+                    Logger_class.LogError("Ошибка загрузки JSON-файла");
                     return new List<Json_reader>();
                 }
             }

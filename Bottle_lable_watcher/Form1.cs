@@ -1,5 +1,6 @@
 using Bottle_lable_watcher.Camera;
 using Bottle_lable_watcher.Configuration_algorithm;
+using Bottle_lable_watcher.Modules;
 using OpenCvSharp;
 using OpenCvSharp.Extensions;
 using System.Windows.Media.Media3D;
@@ -8,10 +9,17 @@ namespace Bottle_lable_watcher
 {
     public partial class Form1 : Form
     {
-        public HikCamera camera_1, camera_2;
+        public List<HikCamera> CameraList { get; set; }
+        public List<string> StatusList { get; set; }
 
-        private int number_procedure;
-        private bool isCameraRunning = false;
+        private int number_procedure, number_chosen_camera;
+        private PictureBox selected_pb = null;
+        private PictureBox camera_crop_chose = null;
+
+        private bool isCameraRunning_1 = false;
+        private bool isCameraRunning_2 = false;
+        private bool chose_camera1 = false;
+        private bool chose_camera2 = false;
         private bool Crop_flag_change = false;
         private bool Point_flag_change = false;
         public Form1()
@@ -22,7 +30,10 @@ namespace Bottle_lable_watcher
             combobox_method_detect.SelectedIndex = 0;
 
             pictureBox1.BorderStyle = BorderStyle.None;
-            pictureBox1.Paint += PictureBox1_Paint;     //Отрисовка рамки
+            pictureBox1.Paint += PictureBox1_Paint_Ramka;     //Отрисовка рамки
+
+            pictureBox2.BorderStyle = BorderStyle.None;
+            pictureBox2.Paint += PictureBox1_Paint_Ramka;     //Отрисовка рамки
 
             n_error.ValueChanged += Numeric_changed;
             n_canny_down.ValueChanged += Numeric_changed;
@@ -36,115 +47,122 @@ namespace Bottle_lable_watcher
 
         }
 
-        /*----------------------------------------------- ГЛАВНАЯ -------------------------------------------------------*/
         private void Form1_Load(object sender, EventArgs e)
         {
+            l_camera1_status.Text = StatusList[0];
+            l_camera2_status.Text = StatusList[1];
+            l_modul_io_status.Text = StatusList[2];
+            Log_text_box();
             this.FormClosing += Form1_FormClosing;
         }
 
-        private void b_camera1_Click(object sender, EventArgs e)
+        /*----------------------- Дополнительные функции для рисования, текстов, флгов и т.д. ---------------------------*/
+        //Выбор камеры
+        private void UpdateSelection(PictureBox newSelection)
         {
-            string serialNumber = "Vir74501888";
-            camera_1 = new HikCamera(serialNumber);
-            if (camera_1.Open() == true)
-            {
-                camera_1.StartStream();
-                camera_1.SendImage += Image_camera_received;
-                Thread.Sleep(1000);
-                camera_1.EndStream();
-            }
-            else
-            {
-                MessageBox.Show("Не удалось подключиться к камере.", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            isCameraRunning = true;
+            selected_pb = newSelection;
             pictureBox1.Invalidate();
-        }
-
-        private void b_camera2_Click(object sender, EventArgs e)
-        {
-            string serialNumber = "Vir74502060";
-            camera_2 = new HikCamera(serialNumber);
-            if (camera_2.Open() == true)
-            {
-                camera_2.StartStream();
-                camera_2.SendImage += Image_camera_received;
-                Thread.Sleep(1000);
-                camera_2.EndStream();
-            }
-            else
-            {
-                MessageBox.Show("Не удалось подключиться к камере.", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            isCameraRunning = true;
             pictureBox2.Invalidate();
         }
-
-        private void b_start_Click(object sender, EventArgs e)
+        //Вывод нового лога в textbox
+        private void Log_text_box()
         {
-            camera_1.StartStream();
-            camera_1.SendImage += Image_camera_received;
-            isCameraRunning = true;
-            pictureBox1.Invalidate();
-
-            camera_2.StartStream();
-            camera_2.SendImage += Image_camera_received_2;
+            textBox1.Text = Logger_class.Return_message_log();
+            textBox1.SelectionStart = textBox1.Text.Length;
+            textBox1.ScrollToCaret();
         }
-
-        private void Start_stream_working(int id_camera)
-        {
-            if (id_camera == 1)
-            {
-                camera_1.StartStream();
-                camera_1.SendImage += Image_camera_received;
-                isCameraRunning = true;
-                pictureBox1.Invalidate();
-            }
-            else
-            {
-                camera_2.StartStream();
-                camera_2.SendImage += Image_camera_received_2;
-                isCameraRunning = true;
-                pictureBox2.Invalidate();   //Сделать переключение рамки между камерами
-            }
-        }
-
+        //Получение и вывод изображений с камеры на форму
         private void Image_camera_received(Mat picture)
         {
             Bitmap bitmap = null;
             bitmap = picture.ToBitmap();
             pictureBox1.Image = bitmap;
         }
-
         private void Image_camera_received_2(Mat picture)
         {
             Bitmap bitmap = null;
             bitmap = picture.ToBitmap();
             pictureBox2.Image = bitmap;
         }
-
-        private void b_stop_Click(object sender, EventArgs e)
+        //Отрисовка рамки
+        private void PictureBox1_Paint_Ramka(object sender, PaintEventArgs e)
         {
-            camera_1.EndStream();
-            isCameraRunning = false;
-
-            camera_2.EndStream();
-            isCameraRunning = false;
-
-            pictureBox1.Invalidate();
-        }
-
-        private void PictureBox1_Paint(object sender, PaintEventArgs e)
-        {
-            if (pictureBox1.Image == null || !isCameraRunning) return;
-
-            using (var pen = new Pen(Color.Red, 10)) // Жирная красная рамка (6 пикселей)
+            PictureBox pb = (PictureBox)sender;
+            if (pb == selected_pb)
             {
-                // Рисуем прямоугольник по краям PictureBox (с учётом толщины пера)
-                e.Graphics.DrawRectangle(pen, 0, 0, pictureBox1.Width - 1, pictureBox1.Height - 1);
+                using (var pen = new Pen(Color.Red, 10))
+                {
+                    e.Graphics.DrawRectangle(pen, 0, 0, pb.Width - 1, pb.Height - 1);
+                }
+            }
+        }
+        //Выбор камеры для отладки
+        private void Chose_camera_otladka()
+        {
+            string camera = comboBox2.Text;
+            if (camera == "Камера 1")
+            {
+                camera_crop_chose = pictureBox1;
+            }
+            else
+            {
+                camera_crop_chose = pictureBox2;
+            }
+        }
+        /*----------------------------------------------- ГЛАВНАЯ -------------------------------------------------------*/
+        //Кнопка камера 1
+        private void b_camera1_Click(object sender, EventArgs e)
+        {
+            number_chosen_camera = 1;
+            UpdateSelection(pictureBox1);
+        }
+        //Кнопка камера 2
+        private void b_camera2_Click(object sender, EventArgs e)
+        {
+            number_chosen_camera = 2;
+            UpdateSelection(pictureBox2);
+        }
+        //Начало трансляции
+        private void b_start_Click(object sender, EventArgs e)
+        {
+            if (number_chosen_camera == 1)
+            {
+                CameraList[0].StartStream();
+                CameraList[0].SendImage += Image_camera_received;
+                isCameraRunning_1 = true;
+                Logger_class.LogInfo("Трансляция с камеры 1 запущена");
+                Log_text_box();
+            }
+            else
+            {
+                CameraList[1].StartStream();
+                CameraList[1].SendImage += Image_camera_received_2;
+                isCameraRunning_2 = true;
+                Logger_class.LogInfo("Трансляция с камеры 2 запущена");
+                Log_text_box();
             }
         }
 
+        //Приостановка вещания с камеры
+        private void b_stop_Click(object sender, EventArgs e)
+        {
+            if (number_chosen_camera==1)
+            {
+                CameraList[0].EndStream();
+                isCameraRunning_1 = false;
+                Logger_class.LogInfo("Трансляция с камеры 1 остановлена");
+                Log_text_box();
+            }
+            else
+            {
+                CameraList[1].EndStream();
+                isCameraRunning_2 = false;
+                Logger_class.LogInfo("Трансляция с камеры 2 остановлена");
+                Log_text_box();
+            }
+        }
+
+        //Закрытие приложения
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             DialogResult result = MessageBox.Show(
@@ -160,34 +178,36 @@ namespace Bottle_lable_watcher
                 e.Cancel = true;
                 return;
             }
-            camera_1.EndStream();
-            camera_2.EndStream();
-            camera_1.Close();
-            camera_2.Close();
+            CameraList[0].EndStream();
+            CameraList[1].EndStream();
+            CameraList[0].Close();
+            CameraList[1].Close();
             Form form2 = new StartWin();
             form2.Show();
         }
         /*--------------------------------------------- ОТЛАДКА --------------------------------------------------------*/
+        //Выделение прямоугольником
         private void b_roi_kv_Click(object sender, EventArgs e)
         {
             if (pictureBox1.Image == null)
             {
-                MessageBox.Show("Нет данных с камеры! Проверьте подключение", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             if (pb_crop.Image != null)
             {
                 Crop_flag_change = true;
             }
+            Chose_camera_otladka();
             number_procedure = 1;
             Bitmap crop = null;
-            crop = Configuration_algorithm.Crop_image_library.Rectangle_selection_roi_crop(new Bitmap(pictureBox1.Image), (int)n_error.Value, Crop_flag_change);
+            crop = Configuration_algorithm.Crop_image_library.Rectangle_selection_roi_crop(new Bitmap(camera_crop_chose.Image), (int)n_error.Value, Crop_flag_change);
             if (crop != null)
             {
                 pb_crop.Image = crop;
             }
         }
 
+        //Выделение по контуру
         private void b_roi_point_Click(object sender, EventArgs e)
         {
             if (pictureBox1.Image == null)
@@ -199,9 +219,10 @@ namespace Bottle_lable_watcher
             {
                 Point_flag_change = true;
             }
+            Chose_camera_otladka();
             number_procedure = 2;
             Bitmap crop = null;
-            crop = Configuration_algorithm.Crop_image_library.Choosen_selection_roi_crop(new Bitmap(pictureBox1.Image), (int)n_error.Value, Point_flag_change);
+            crop = Configuration_algorithm.Crop_image_library.Choosen_selection_roi_crop(new Bitmap(camera_crop_chose.Image), (int)n_error.Value, Point_flag_change);
             if (crop != null)
             {
                 pb_crop.Image = crop;
@@ -220,12 +241,12 @@ namespace Bottle_lable_watcher
             if (number_procedure == 1)
             {
                 Crop_flag_change = true;
-                crop = Configuration_algorithm.Crop_image_library.Rectangle_selection_roi_crop(new Bitmap(pictureBox1.Image), (int)n_error.Value, Crop_flag_change);
+                crop = Configuration_algorithm.Crop_image_library.Rectangle_selection_roi_crop(new Bitmap(camera_crop_chose.Image), (int)n_error.Value, Crop_flag_change);
             }
             if (number_procedure == 2)
             {
                 Point_flag_change = true;
-                crop = Configuration_algorithm.Crop_image_library.Choosen_selection_roi_crop(new Bitmap(pictureBox1.Image), (int)n_error.Value, Point_flag_change);
+                crop = Configuration_algorithm.Crop_image_library.Choosen_selection_roi_crop(new Bitmap(camera_crop_chose.Image), (int)n_error.Value, Point_flag_change);
             }
 
             if (crop != null)

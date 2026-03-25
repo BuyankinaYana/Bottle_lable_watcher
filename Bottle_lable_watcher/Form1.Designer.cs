@@ -41,11 +41,18 @@
             b_camera2 = new Button();
             l_panelcontrol = new Label();
             panel10 = new Panel();
+            panel18 = new Panel();
+            tableLayoutPanel11 = new TableLayoutPanel();
+            label4 = new Label();
+            label27 = new Label();
+            label28 = new Label();
             l_camera1_status = new Label();
             l_camera2_status = new Label();
-            label4 = new Label();
+            l_modul_io_status = new Label();
             l_status = new Label();
             panel12 = new Panel();
+            panel17 = new Panel();
+            textBox1 = new TextBox();
             l_logs = new Label();
             panel1 = new Panel();
             pictureBox1 = new PictureBox();
@@ -129,7 +136,10 @@
             tableLayoutPanel4.SuspendLayout();
             tableLayoutPanel3.SuspendLayout();
             panel10.SuspendLayout();
+            panel18.SuspendLayout();
+            tableLayoutPanel11.SuspendLayout();
             panel12.SuspendLayout();
+            panel17.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel2.SuspendLayout();
@@ -343,9 +353,7 @@
             // 
             // panel10
             // 
-            panel10.Controls.Add(l_camera1_status);
-            panel10.Controls.Add(l_camera2_status);
-            panel10.Controls.Add(label4);
+            panel10.Controls.Add(panel18);
             panel10.Controls.Add(l_status);
             panel10.Dock = DockStyle.Fill;
             panel10.Location = new Point(348, 557);
@@ -353,41 +361,97 @@
             panel10.Size = new Size(339, 232);
             panel10.TabIndex = 4;
             // 
-            // l_camera1_status
+            // panel18
             // 
-            l_camera1_status.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            l_camera1_status.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            l_camera1_status.ForeColor = Color.FromArgb(0, 0, 192);
-            l_camera1_status.Location = new Point(0, 49);
-            l_camera1_status.Name = "l_camera1_status";
-            l_camera1_status.Size = new Size(339, 35);
-            l_camera1_status.TabIndex = 3;
-            l_camera1_status.Text = "Камера 1";
-            l_camera1_status.TextAlign = ContentAlignment.MiddleCenter;
+            panel18.Controls.Add(tableLayoutPanel11);
+            panel18.Dock = DockStyle.Fill;
+            panel18.Location = new Point(0, 35);
+            panel18.Name = "panel18";
+            panel18.Size = new Size(339, 197);
+            panel18.TabIndex = 1;
             // 
-            // l_camera2_status
+            // tableLayoutPanel11
             // 
-            l_camera2_status.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            l_camera2_status.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 204);
-            l_camera2_status.ForeColor = Color.FromArgb(0, 0, 192);
-            l_camera2_status.Location = new Point(0, 84);
-            l_camera2_status.Name = "l_camera2_status";
-            l_camera2_status.Size = new Size(339, 35);
-            l_camera2_status.TabIndex = 2;
-            l_camera2_status.Text = "Камера 2";
-            l_camera2_status.TextAlign = ContentAlignment.MiddleCenter;
+            tableLayoutPanel11.ColumnCount = 2;
+            tableLayoutPanel11.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30F));
+            tableLayoutPanel11.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 70F));
+            tableLayoutPanel11.Controls.Add(label4, 0, 0);
+            tableLayoutPanel11.Controls.Add(label27, 0, 1);
+            tableLayoutPanel11.Controls.Add(label28, 0, 2);
+            tableLayoutPanel11.Controls.Add(l_camera1_status, 1, 0);
+            tableLayoutPanel11.Controls.Add(l_camera2_status, 1, 1);
+            tableLayoutPanel11.Controls.Add(l_modul_io_status, 1, 2);
+            tableLayoutPanel11.Dock = DockStyle.Fill;
+            tableLayoutPanel11.Location = new Point(0, 0);
+            tableLayoutPanel11.Name = "tableLayoutPanel11";
+            tableLayoutPanel11.RowCount = 3;
+            tableLayoutPanel11.RowStyles.Add(new RowStyle(SizeType.Percent, 33.33F));
+            tableLayoutPanel11.RowStyles.Add(new RowStyle(SizeType.Percent, 33.33F));
+            tableLayoutPanel11.RowStyles.Add(new RowStyle(SizeType.Percent, 33.34F));
+            tableLayoutPanel11.Size = new Size(339, 197);
+            tableLayoutPanel11.TabIndex = 0;
             // 
             // label4
             // 
-            label4.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            label4.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.ForeColor = Color.FromArgb(0, 0, 192);
-            label4.Location = new Point(0, 119);
+            label4.Anchor = AnchorStyles.Left;
+            label4.AutoSize = true;
+            label4.Location = new Point(3, 4);
             label4.Name = "label4";
-            label4.Size = new Size(339, 35);
-            label4.TabIndex = 1;
-            label4.Text = "Модуль I/O";
-            label4.TextAlign = ContentAlignment.MiddleCenter;
+            label4.Size = new Size(92, 56);
+            label4.TabIndex = 0;
+            label4.Text = "Камера 1";
+            label4.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // label27
+            // 
+            label27.Anchor = AnchorStyles.Left;
+            label27.AutoSize = true;
+            label27.Location = new Point(3, 69);
+            label27.Name = "label27";
+            label27.Size = new Size(92, 56);
+            label27.TabIndex = 1;
+            label27.Text = "Камера 2";
+            label27.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // label28
+            // 
+            label28.Anchor = AnchorStyles.Left;
+            label28.AutoSize = true;
+            label28.Location = new Point(3, 135);
+            label28.Name = "label28";
+            label28.Size = new Size(73, 56);
+            label28.TabIndex = 2;
+            label28.Text = "OVEN I/O";
+            label28.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // l_camera1_status
+            // 
+            l_camera1_status.Anchor = AnchorStyles.Left;
+            l_camera1_status.AutoSize = true;
+            l_camera1_status.Location = new Point(104, 18);
+            l_camera1_status.Name = "l_camera1_status";
+            l_camera1_status.Size = new Size(0, 28);
+            l_camera1_status.TabIndex = 3;
+            // 
+            // l_camera2_status
+            // 
+            l_camera2_status.Anchor = AnchorStyles.Left;
+            l_camera2_status.AutoSize = true;
+            l_camera2_status.Location = new Point(104, 83);
+            l_camera2_status.Name = "l_camera2_status";
+            l_camera2_status.Size = new Size(0, 28);
+            l_camera2_status.TabIndex = 4;
+            l_camera2_status.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // l_modul_io_status
+            // 
+            l_modul_io_status.Anchor = AnchorStyles.Left;
+            l_modul_io_status.AutoSize = true;
+            l_modul_io_status.Location = new Point(104, 149);
+            l_modul_io_status.Name = "l_modul_io_status";
+            l_modul_io_status.Size = new Size(0, 28);
+            l_modul_io_status.TabIndex = 5;
+            l_modul_io_status.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // l_status
             // 
@@ -404,12 +468,34 @@
             // 
             // panel12
             // 
+            panel12.Controls.Add(panel17);
             panel12.Controls.Add(l_logs);
             panel12.Dock = DockStyle.Fill;
             panel12.Location = new Point(3, 557);
             panel12.Name = "panel12";
             panel12.Size = new Size(339, 232);
             panel12.TabIndex = 3;
+            // 
+            // panel17
+            // 
+            panel17.Controls.Add(textBox1);
+            panel17.Dock = DockStyle.Fill;
+            panel17.Location = new Point(0, 35);
+            panel17.Name = "panel17";
+            panel17.Size = new Size(339, 197);
+            panel17.TabIndex = 1;
+            // 
+            // textBox1
+            // 
+            textBox1.Dock = DockStyle.Fill;
+            textBox1.ForeColor = Color.FromArgb(0, 0, 192);
+            textBox1.Location = new Point(0, 0);
+            textBox1.Multiline = true;
+            textBox1.Name = "textBox1";
+            textBox1.ReadOnly = true;
+            textBox1.ScrollBars = ScrollBars.Vertical;
+            textBox1.Size = new Size(339, 197);
+            textBox1.TabIndex = 0;
             // 
             // l_logs
             // 
@@ -1344,7 +1430,12 @@
             tableLayoutPanel4.ResumeLayout(false);
             tableLayoutPanel3.ResumeLayout(false);
             panel10.ResumeLayout(false);
+            panel18.ResumeLayout(false);
+            tableLayoutPanel11.ResumeLayout(false);
+            tableLayoutPanel11.PerformLayout();
             panel12.ResumeLayout(false);
+            panel17.ResumeLayout(false);
+            panel17.PerformLayout();
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel2.ResumeLayout(false);
@@ -1401,9 +1492,6 @@
         private Panel panel3;
         private ComboBox comboBox1;
         private Panel panel10;
-        private Label l_camera1_status;
-        private Label l_camera2_status;
-        private Label label4;
         private Label l_status;
         private Panel panel12;
         private Label l_logs;
@@ -1481,5 +1569,15 @@
         private Label label25;
         private Label label24;
         private ComboBox combobox_method_detect;
+        private Panel panel17;
+        private TextBox textBox1;
+        private Panel panel18;
+        private TableLayoutPanel tableLayoutPanel11;
+        private Label label4;
+        private Label label27;
+        private Label label28;
+        private Label l_camera1_status;
+        private Label l_camera2_status;
+        private Label l_modul_io_status;
     }
 }
