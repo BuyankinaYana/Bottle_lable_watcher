@@ -57,6 +57,7 @@ namespace Bottle_lable_watcher
                 }
                 else
                 {
+                    camera_list.Add(null);
                     uint Error = c.LastErrorCode;
                     string errorDescription = GetErrorDescription(Error);
                     int.TryParse(camera.ID_num, out int id);

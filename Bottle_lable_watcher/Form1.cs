@@ -31,7 +31,6 @@ namespace Bottle_lable_watcher
 
             pictureBox1.BorderStyle = BorderStyle.None;
             pictureBox1.Paint += PictureBox1_Paint_Ramka;     //Отрисовка рамки
-
             pictureBox2.BorderStyle = BorderStyle.None;
             pictureBox2.Paint += PictureBox1_Paint_Ramka;     //Отрисовка рамки
 
@@ -44,7 +43,6 @@ namespace Bottle_lable_watcher
             n_max_area.ValueChanged += Numeric_changed;
             n_extension.ValueChanged += Numeric_changed;
             combobox_method_detect.SelectedValueChanged += Numeric_changed;
-
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -53,10 +51,11 @@ namespace Bottle_lable_watcher
             l_camera2_status.Text = StatusList[1];
             l_modul_io_status.Text = StatusList[2];
             Log_text_box();
+
             this.FormClosing += Form1_FormClosing;
         }
 
-        /*----------------------- Дополнительные функции для рисования, текстов, флгов и т.д. ---------------------------*/
+        /*----------------------- Дополнительные функции для рисования, текстов, флагов и т.д. ---------------------------*/
         //Выбор камеры
         private void UpdateSelection(PictureBox newSelection)
         {
@@ -125,19 +124,21 @@ namespace Bottle_lable_watcher
         //Начало трансляции
         private void b_start_Click(object sender, EventArgs e)
         {
-            if (number_chosen_camera == 1)
+            if ((number_chosen_camera == 1) && (CameraList[0]!=null))
             {
                 CameraList[0].StartStream();
                 CameraList[0].SendImage += Image_camera_received;
                 isCameraRunning_1 = true;
+                l_camera1_status.Text = "Транслируется";
                 Logger_class.LogInfo("Трансляция с камеры 1 запущена");
                 Log_text_box();
             }
-            else
+            if ((number_chosen_camera == 2) && (CameraList[1] != null))
             {
                 CameraList[1].StartStream();
                 CameraList[1].SendImage += Image_camera_received_2;
                 isCameraRunning_2 = true;
+                l_camera2_status.Text = "Транслируется";
                 Logger_class.LogInfo("Трансляция с камеры 2 запущена");
                 Log_text_box();
             }
@@ -150,6 +151,7 @@ namespace Bottle_lable_watcher
             {
                 CameraList[0].EndStream();
                 isCameraRunning_1 = false;
+                l_camera1_status.Text = "Трансляция приостановлена";
                 Logger_class.LogInfo("Трансляция с камеры 1 остановлена");
                 Log_text_box();
             }
@@ -157,6 +159,7 @@ namespace Bottle_lable_watcher
             {
                 CameraList[1].EndStream();
                 isCameraRunning_2 = false;
+                l_camera2_status.Text = "Трансляция приостановлена";
                 Logger_class.LogInfo("Трансляция с камеры 2 остановлена");
                 Log_text_box();
             }
@@ -191,6 +194,7 @@ namespace Bottle_lable_watcher
         {
             if (pictureBox1.Image == null)
             {
+                MessageBox.Show("Нет данных с камеры! Проверьте подключение", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             if (pb_crop.Image != null)

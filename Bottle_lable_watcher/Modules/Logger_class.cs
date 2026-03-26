@@ -36,8 +36,8 @@ namespace Bottle_lable_watcher.Modules
                 }
                 catch (Exception ex)
                 {
-                    // В случае ошибки записи выводим информацию в консоль
-                    Console.WriteLine("Ошибка записи в лог: " + ex.Message);    //ЗАМЕНИИИИИИИИИИ
+                    string msg = "Ошибка записи в лог: " + ex.Message;
+                    MessageBox.Show(msg, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
